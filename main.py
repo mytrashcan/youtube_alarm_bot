@@ -3,6 +3,7 @@ import requests
 import json
 import time
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -88,13 +89,16 @@ def main():
                     last_video_ids[channel_name] = latest_video["video_id"]  # 마지막 ID 업데이트
 
                 else:
-                    print(f"{channel_name} 채널에 새로운 영상이 없습니다.")
+                    # 현재 시간 추가
+                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    print(f"{channel_name} 채널에 새로운 영상이 없습니다. ({current_time})")
 
         # 마지막 확인된 비디오 ID 업데이트 저장
         save_last_video_ids(last_video_ids)
 
         # 10분 대기 후 다시 확인
         time.sleep(600)
+
 
 if __name__ == "__main__":
      main()
